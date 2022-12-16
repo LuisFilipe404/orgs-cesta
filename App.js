@@ -1,20 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { StatusBar, SafeAreaView } from 'react-native'; // Mudar a statusbar e adicionaro SafeAreaView para iphone
+import Cesta from './src/components/cesta';
+import mock from './src/mocks/cesta'
+import { useFonts, Montserrat_400Regular, Montserrat_700Bold } from '@expo-google-fonts/montserrat';
+import AppLoading from 'expo-app-loading'
 
 export default function App() {
+  const [fontecarregada] = useFonts({
+    "MontserratRegular": Montserrat_400Regular,
+    "MontserratBold": Montserrat_700Bold
+  });
+
+  if (!fontecarregada) {
+    return <AppLoading/>
+  } // esperar o carregamento da fonte
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={ { flex: 1 }}>
+      <StatusBar/>
+      <Cesta {...mock}/>
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
